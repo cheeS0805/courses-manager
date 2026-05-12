@@ -1,4 +1,3 @@
-/* ── Сторінка ── */
 .page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -33,7 +32,6 @@
   gap: 24px;
 }
 
-/* ── Секції ── */
 .form-section,
 .list-section {
   background: white;
@@ -76,7 +74,6 @@ h2 {
   font-weight: 600;
 }
 
-/* ── Форма ── */
 .form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -143,7 +140,6 @@ input:focus {
   transform: none;
 }
 
-/* ── Картки курсів ── */
 .list-section ul {
   list-style: none;
   padding: 0;
@@ -217,7 +213,6 @@ input:focus {
   border-color: #e53e3e;
 }
 
-/* ── Порожній стан ── */
 .empty-state {
   text-align: center;
   padding: 32px 16px;
@@ -229,7 +224,6 @@ input:focus {
   margin-bottom: 10px;
 }
 
-/* ── Модальне вікно ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
