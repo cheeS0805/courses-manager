@@ -1,0 +1,86 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Керування курсами</h1>
+    <p class="subtitle">Додавайте, переглядайте та видаляйте навчальні курси</p>
+  </header>
+
+  <div class="content">
+    <section class="form-section">
+      <h2>
+        <span class="section-icon">+</span> Новий курс
+      </h2>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="title">Назва курсу</label>
+            <input id="title" formControlName="title" placeholder="Наприклад: TypeScript з нуля" />
+            <span class="error" *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+              Поле обов'язкове
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="category">Категорія</label>
+            <input id="category" formControlName="category" placeholder="Наприклад: Frontend" />
+            <span class="error" *ngIf="form.get('category')?.invalid && form.get('category')?.touched">
+              Поле обов'язкове
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="duration">Тривалість</label>
+            <input id="duration" formControlName="duration" placeholder="Наприклад: 8 годин" />
+            <span class="error" *ngIf="form.get('duration')?.invalid && form.get('duration')?.touched">
+              Поле обов'язкове
+            </span>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">
+          Додати курс
+        </button>
+      </form>
+    </section>
+
+    <section class="list-section">
+      <h2>
+        <span class="section-icon">&#9776;</span> Список курсів
+        <span class="count-badge" *ngIf="(courses$ | async) as courses">
+          {{ courses.length }}
+        </span>
+      </h2>
+
+      <ul *ngIf="(courses$ | async) as courses; else empty">
+        <li *ngFor="let course of courses" class="course-card">
+          <div class="card-left">
+            <div class="card-title">{{ course.title }}</div>
+            <div class="card-meta">
+              <span class="badge-category">{{ course.category }}</span>
+              <span class="badge-duration">&#128336; {{ course.duration }}</span>
+            </div>
+          </div>
+          <button class="btn-delete" (click)="confirmDelete(course)">
+            &#128465; Видалити
+          </button>
+        </li>
+      </ul>
+
+      <ng-template #empty>
+        <div class="empty-state">
+          <div class="empty-icon">&#128218;</div>
+          <p>Курсів ще немає. Додайте перший!</p>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+</div>
+
+<!-- Модальне вікно підтвердження -->
+<div class="modal-overlay" *ngIf="courseToDelete" (click)="onCancelDelete()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-icon">&#9888;</div>
+    <h3>Видалити курс?</h3>
+    <p>Ви впевнені, що хочете видалити курс<br><strong>«{{ courseToDelete.title }}»</strong>?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="onCancelDelete()">Скасувати</button>
+      <button class="btn-confirm" (click)="onConfirmDelete()">Так, видалити</button>
+    </div>
+  </div>
+</div>
